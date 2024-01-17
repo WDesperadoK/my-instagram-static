@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>insta485</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <header style="width: 100%; overflow: hidden; margin-bottom: 15px">
+      <div style="float: left">
+        <a href="/">
+          <img src="/images/logo.jpg" alt="Insta485" width="300" height="85" />
+        </a>
+      </div>
+      <div style="float: right">
+        <a href="/explore/" style="margin-right: 6px">Explore</a>|
+        <a href="/users/{{ logname }}/">{{ logname }}</a>
+      </div>
+    </header>
+    <hr />
+
+    <!-- All posts from other users that the logged in user is following-->
+    {% for post in posts %}
+    <div class="post">
+      <header>
+        <a href="/users/{{ post.owner}}/" class="link">
+          <img
+            class="profile-img"
+            src="{{ post.owner_img_url}}"
+            alt="{{ post.owner}}'s profile"
+          />
+          <span><strong>{{ post.owner}}</strong></span>
+        </a>
+        <a href="/posts/{{ post.post_id }}/" class="link"
+          ><time datetime="2024/1/1" , style="float: right"
+            >{{ post.timestamp }}</time
+          >
+        </a>
+      </header>
+      <img
+        class="post-img"
+        src="{{ post.img_url}}"
+        alt="Post Description"
+        width="500"
+        height="500"
+      />
+      <footer>
+        <p>
+          <strong
+            >{{ post.likes }} like{{ 's' if post.likes != 1 else ''}}</strong
+          >
+        </p>
+        <section>
+          {% for comment in post.comments %}
+          <a href="/users/{{ comment.owner}}/"
+            ><strong>{{ comment.owner}}</strong></a
+          >
+          {{ comment.text }} <br />
+          {% endfor %}
+        </section>
+      </footer>
+    </div>
+    <hr />
+    {% endfor %}
+  </body>
+</html>

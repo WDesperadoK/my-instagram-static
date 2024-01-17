@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+# insta485test
+#
+# run tests for insta485
+
+# Stop on errors, print commands
+set -Eeuo pipefail
+set -x
+
+# Run unit tests with pytest
+pytest tests/
+
+# Check code style with pycodestyle
+pycodestyle insta485generator
+
+# Check documentation style with pydocstyle
+pydocstyle insta485generator
+
+# Lint with pylint
+pylint insta485generator
+
+# Clean up previous build
+rm -rf insta485/html
+
+# Build new directory
+insta485generator insta485
+
+# Validate hand-coded HTML
+html5validator --ignore JAVA_TOOL_OPTIONS --root html/
+
+# Validate generated HTML
+html5validator --ignore JAVA_TOOL_OPTIONS --root insta485/html/
