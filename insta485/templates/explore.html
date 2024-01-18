@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>insta485</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
 
   <body>
@@ -22,5 +22,23 @@
       </div>
     </header>
     <hr />
+
+    <div class="profile-container">
+      <h1>Discover people</h1>
+    </div>
+    {% for people in not_following %}
+    <div class="post">
+      <header>
+        <a href="/users/{{ people.username}}/" class="link">
+          <img
+            class="profile-img"
+            src="{{ people.user_img_url}}"
+            alt="{{ people.username}}'s profile"
+          />
+          <span><strong>{{ people.username}}</strong></span>
+        </a>
+      </header>
+    </div>
+    {% endfor %}
   </body>
 </html>

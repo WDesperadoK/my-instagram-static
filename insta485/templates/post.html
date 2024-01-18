@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>insta485</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
 
   <body>
@@ -21,6 +21,45 @@
         >
       </div>
     </header>
+    <hr />
+
+    <div class="post">
+      <header>
+        <a href="/users/{{ owner}}/" class="link">
+          <img
+            class="profile-img"
+            src="{{ owner_img_url}}"
+            alt="{{ owner}}'s profile"
+          />
+          <span><strong>{{ owner}}</strong></span>
+        </a>
+        <a href="/posts/{{ postid }}/" class="link"
+          ><time datetime="2024-01-01T12:00" style="float: right"
+            >{{ timestamp }}</time
+          >
+        </a>
+      </header>
+      <img
+        class="post-img"
+        src="{{ img_url}}"
+        alt="Post Description"
+        width="500"
+        height="500"
+      />
+      <footer>
+        <p>
+          <strong>{{ likes }} like{{ 's' if likes != 1 else ''}}</strong>
+        </p>
+        <section>
+          {% for comment in comments %}
+          <a href="/users/{{ comment.owner}}/"
+            ><strong>{{ comment.owner}}</strong></a
+          >
+          {{ comment.text }} <br />
+          {% endfor %}
+        </section>
+      </footer>
+    </div>
     <hr />
   </body>
 </html>

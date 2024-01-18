@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>insta485</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
 
   <body>
@@ -22,5 +22,27 @@
       </div>
     </header>
     <hr />
+
+    <div class="profile-container">
+      <h1>Followers</h1>
+    </div>
+    {% for follower in followers %}
+    <div class="post">
+      <header>
+        <a href="/users/{{ follower.username}}/" class="link">
+          <img
+            class="profile-img"
+            src="{{ follower.user_img_url}}"
+            alt="{{ follower.username}}'s profile"
+          />
+          <span><strong>{{ follower.username}}</strong></span>
+        </a>
+        {% if follower.username == logname %}
+        <!--Blank-->
+        {% elif follower.logname_follows_username %} following {% else %} not
+        following {% endif %}
+      </header>
+    </div>
+    {% endfor %}
   </body>
 </html>

@@ -56,10 +56,22 @@ a {
     height: 50px;
     border-radius: 50%;
     object-fit: cover; 
+    margin-right: 10px;
 }
 
 .post .post-img {
     width: 100%;
     height: auto;
     margin: 0 auto; 
+}
+
+.profile-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

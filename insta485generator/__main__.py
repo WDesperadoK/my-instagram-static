@@ -6,6 +6,7 @@ import sys
 import shutil
 import click
 import jinja2
+from jinja2 import TemplateError
 
 
 @click.command()
@@ -27,9 +28,6 @@ def main(input_dir, output, verbose):
         output_dir.mkdir(parents=True, exist_ok=False)
 
     # Debug prints
-    if verbose:
-        print(f"DEBUG input_dir={input_dir}")
-        print(f"DEBUG output_dir={output_dir}")
 
     # Read configuration file using context manager
     config_file = input_dir / 'config.json'
@@ -67,9 +65,11 @@ def main(input_dir, output, verbose):
             output_file.parent.mkdir(parents=True, exist_ok=True)
             with output_file.open('w') as f:
                 f.write(rendered_content)
-    except jinja2.TemplateNotFound as e:
+            if verbose:
+                click.echo(f"Rendered {template.name} -> {output_file}")
+    except TemplateError as e:
         click.echo("insta485generator error: " +
-                   f"'{e.filename}'\n{e.message}", err=True)
+                   f"'{item['template']}'\n{e.message}", err=True)
         sys.exit(1)
 
     # Copy static files
@@ -81,6 +81,8 @@ def main(input_dir, output, verbose):
                     shutil.copytree(item, dest)
                 else:
                     shutil.copy(item, dest)
+        if verbose:
+            click.echo(f"Copied {static_dir} -> {output_dir}")
 
     copy_static_files(input_dir / 'static', output_dir)
 

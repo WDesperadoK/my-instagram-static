@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>insta485</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
 
   <body>
@@ -18,5 +18,44 @@
       </div>
     </header>
     <hr />
+
+    <div class="profile-container">
+      <!-- User profile content listed here-->
+      <h1>{{ username }}</h1>
+      <!-- Relationship listed here-->
+      <p>
+        {% if username == logname %}
+        <!--Blank-->
+        {% elif logname_follows_username %} following {% else %} not following
+        {% endif %}
+      </p>
+      <p>{{ total_posts}} post{{'s' if total_posts != 1 else ''}}</p>
+      <p>
+        <a href="/users/{{username}}/followers/"
+          ><strong
+            >{{ followers}} {{'followers' if followers != 1 else
+            'follower'}}</strong
+          ></a
+        >
+        <a href="/users/{{username}}/following/"
+          ><strong>{{ following}} following</strong></a
+        >
+      </p>
+      <p>{{ fullname }}</p>
+
+      <!-- Posts listed here-->
+      <div style="display: flex">
+        {% for post in posts %}
+        <div style="margin-right: 10px">
+          <a href="/posts/{{ post.postid }}/"
+            ><img
+              src="{{ post.img_url }}"
+              alt="Description for first post"
+              style="width: 300px; height: 300px"
+          /></a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
   </body>
 </html>
